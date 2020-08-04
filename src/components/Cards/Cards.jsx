@@ -3,7 +3,7 @@ import {Card,CardContent,Typography,Grid} from '@material-ui/core'
 import CountUp from 'react-countup';
 import styles from './cards.module.css'
 import cx from 'classnames'
- const Cards = ({data: {active,active_rate,confirmed,death,death_rate,lastUpdate} }) => {
+ const Cards = ({data: {active,active_rate,confirmed,death,death_rate} }) => {
      if(!active){
          return 'Loading...'
      }

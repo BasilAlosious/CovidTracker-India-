@@ -18,26 +18,45 @@ export const fetchData = async () =>{
         
     }
     catch(error){
-
+        console.log(error)
     }
 }
 const stateUrl = 'https://covid-19india-api.herokuapp.com/v2.0/state_data'
 const stateproxyurl = "https://cors-anywhere.herokuapp.com/"
 
-export const fetchStateData = async () =>{
+export const fetchStateData = async (stateselect) =>{
     try{
         const { data:{1:state_data}}= await axios.get(stateproxyurl + stateUrl)
 
-        /*return state_data.state_data */
-       const modifiedData = state_data.state_data.map((states) =>{
-          return {
-              stateName:states.state,
-          }
-
-       }) 
-            
-       return modifiedData
-        
+        if(stateselect) {
+            /*return state_data.state_data */
+            const modifiedData = state_data.state_data.map((states) =>{
+                
+                return {
+                stateName: states.state,
+                active:states.active,
+                active_rate:states.active_rate,
+                confirmed : states.confirmed,
+                death: states.deaths,
+                death_rate: states.death_rate,}        
+             })
+             
+              Object.keys(modifiedData).forEach((keys) =>{
+                  if(stateselect === modifiedData[keys].stateName){
+                     console.log(modifiedData[keys])
+                    
+                   }
+               })
+                      
+        }
+       else {
+           const onlystateName = state_data.state_data.map((states) =>{
+               return {
+                stateName: states.state
+               }
+           })
+           return onlystateName
+       }
         
     }
     catch(error){

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import styles from'./App.module.css';
  import{Cards,Charts,CountryPicker} from './components'
- import {fetchData } from './api'
+ import {fetchData,fetchStateData } from './api'
  class App extends Component {
      state = {
          data:{},
@@ -14,7 +14,10 @@ import styles from'./App.module.css';
      }
 
      handleStatesChange = async(states) =>{
+         const fetchedState = await fetchStateData(states)
          console.log(states)
+       console.log(fetchedState)
+           
      }
      render() {
          const {data}= this.state
@@ -22,7 +25,7 @@ import styles from'./App.module.css';
              <div className={styles.container}>
                  <Cards data={data}/>
                  <CountryPicker handleStatesChange={this.handleStatesChange}/>
-                 <Charts/>
+                 <Charts  />
              </div>
          )
      }
