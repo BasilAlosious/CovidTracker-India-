@@ -11,8 +11,9 @@ export const fetchData = async () =>{
             confirmed : data[0].confirmed_cases,
             death: data[0].death_cases,
             death_rate: data[0].death_rate,
+            recovered:data[0].recovered_cases,
+            recovered_rate:data[0].recovered_rate,
             lastUpdate:data[0].last_updated,
-            
 
         }
         
@@ -38,16 +39,18 @@ export const fetchStateData = async (stateselect) =>{
                 active_rate:states.active_rate,
                 confirmed : states.confirmed,
                 death: states.deaths,
-                death_rate: states.death_rate,}        
+                death_rate: states.death_rate,
+                recovered:states.recovered,
+                recovered_rate:states.recovered_rate
+            }        
              })
-             
+             let finalState = {}
               Object.keys(modifiedData).forEach((keys) =>{
                   if(stateselect === modifiedData[keys].stateName){
-                     console.log(modifiedData[keys])
-                    
-                   }
+                       finalState = modifiedData[keys]                    
+                   } 
                })
-                      
+                return finalState
         }
        else {
            const onlystateName = state_data.state_data.map((states) =>{

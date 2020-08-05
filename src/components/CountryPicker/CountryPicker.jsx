@@ -16,7 +16,7 @@ import{fetchStateData} from '../../api'
     return (
         <FormControl className={styles.formControl}>
         <NativeSelect defaultValue="" onChange={(e)=>handleStatesChange(e.target.value)}>
-        <option value="total">Country</option>
+        <option value="">Country</option>
         {fetchedCountries.map((state,i)=> 
             <option key={i} value={state.stateName}>{state.stateName}</option> 
             )}

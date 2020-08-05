@@ -3,7 +3,7 @@ import {fetchData} from '../../api'
 import{Bar} from 'react-chartjs-2'
 import styles from './Charts.module.css'
 
- const Charts = () => {
+ const Charts = ({data:{confirmed,death,active,recovered},state}) => {
      const [countryData, setCountryData] = useState([])
 
      useEffect(() => {
@@ -17,25 +17,54 @@ import styles from './Charts.module.css'
          countryData.confirmed
         ?( <Bar 
         data={{
-            labels:['Confirmed','Active','Deaths'],
+            labels:['Confirmed','Active','Recovered','Deaths'],
             datasets:[{
                 label:'people',
                 backgroundColor:[
                     'rgba(70, 24, 196, 0.5)',
+                    'rgba(241, 122, 10, 0.5)',
                     'rgba(30, 231, 12, 0.5)',
-                    ' rgba(255, 0, 0, 0.5)'],
-                data:[countryData.confirmed,countryData.active,countryData.death]
+                    ' rgba(255, 0, 0, 0.5)'
+                ],
+                data:[countryData.confirmed,countryData.active,countryData.recovered,countryData.death]
             }]
          }}
          options={{
              legend: {display:false},
-             title:{display:true,text:'Current state in India'}
+             title:{display:true,text:'Current state '}
          }}
         />):null 
      ) 
+     const stateBarChart = (
+         active
+         ?(
+             <Bar
+             data={{
+
+                labels:['Confirmed','Active','Recovered','Deaths'],
+                datasets:[{
+                    label:'people',
+                    backgroundColor:[
+                        'rgba(70, 24, 196, 0.5)',
+                        'rgba(241, 122, 10, 0.5)',
+                        'rgba(30, 231, 12, 0.5)',
+                        ' rgba(255, 0, 0, 0.5)',
+                    ],
+                    data:[confirmed,active,recovered,death]
+                }]
+             }}
+             options = {{
+                 legend:{display:false},
+                 title:{display:true, text:'Current State '}
+             }}
+             
+             
+             />
+            ):null
+     )
     return (
         <div className ={styles.container}>
-            {countryBarChart}
+            {state ? stateBarChart :countryBarChart}
         </div>
     )
 }
