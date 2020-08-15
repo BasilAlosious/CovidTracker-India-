@@ -66,3 +66,22 @@ export const fetchStateData = async (stateselect) =>{
 
     }
 }
+
+const proxyurlNews = "https://cors-anywhere.herokuapp.com/"
+const Newsurl = 'https://covid-19india-api.herokuapp.com/headlines'
+
+export const fetchNewsData = async () =>{
+    try{
+        const { data }= await axios.get(proxyurlNews+ Newsurl)
+
+        return {
+            headlines:data.headlines,
+            headlines_summary: data.headlines_summary,
+            image_link:data.image_link
+        }
+        
+    }
+    catch(error){
+        console.log(error)
+    }
+}

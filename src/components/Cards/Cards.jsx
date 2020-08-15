@@ -13,7 +13,7 @@ import cx from 'classnames'
         <div className={styles.container}>
            <Grid container spacing={3} justify="center">
 
-           <Grid item component={Card}xs={12} md={3} className={cx(styles.card,styles.confirmed)} >
+        <Grid item component={Card}xs={12} sm={3} className={cx(styles.card,styles.confirmed)} >
            <CardContent>
            <Typography color="textSecondary" gutterBottom>Confirmed</Typography>
            <Typography variant="h5"><CountUp start={0} end={confirmed}  duration={2.5} separator=","/></Typography>
@@ -22,19 +22,9 @@ import cx from 'classnames'
            </CardContent>
            </Grid>
            
-           <Grid item  xs={12} md={3} component={Card} className={cx(styles.card, styles.active)}>
-           <CardContent>
-           <Typography color="textSecondary" gutterBottom>Active</Typography>
-            <Typography variant="h5"><CountUp start={0} end={active}  duration={2.5} separator=","/>
-           </Typography>
-           <Typography color="textSecondary">{n}</Typography>
-           <Typography variant="body2">Number of active cases of COVID-19</Typography>
-           <Typography variant="body2">{active_rate}</Typography>
-           <Typography variant="body2">Active Rate</Typography>
-           </CardContent>
-           </Grid>
+          
 
-           <Grid item  xs={12} md={3} component={Card} className={cx(styles.card, styles.recovered)}>
+           <Grid item  xs={12} sm={3} component={Card} className={cx(styles.card, styles.recovered)}>
            <CardContent>
            <Typography color="textSecondary" gutterBottom>Recovered</Typography>
             <Typography variant="h5"><CountUp start={0} end={recovered}  duration={2.5} separator=","/>
@@ -47,7 +37,7 @@ import cx from 'classnames'
            </Grid>
 
 
-           <Grid item component={Card} xs={12} md={3} className={cx(styles.card,styles.deaths)}>
+           <Grid item component={Card} xs={12} sm={3} className={cx(styles.card,styles.deaths)}>
            <CardContent>
            <Typography color="textSecondary" gutterBottom>Deaths</Typography>
            <Typography variant="h5"><CountUp start={0} end={death}  duration={2.5} separator=","/></Typography>
