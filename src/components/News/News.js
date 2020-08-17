@@ -1,41 +1,94 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
+import { red } from '@material-ui/core/colors';
+import LaunchOutlinedIcon from '@material-ui/icons/LaunchOutlined';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-const News = ({headlines,headlines_summary}) => {
+const useStyles = makeStyles((theme) => ({
+    root: {
+      maxWidth: 345,
+    },
+    media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+      transform: 'rotate(0deg)',
+      marginLeft: 'auto',
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: 'rotate(180deg)',
+    },
+    avatar: {
+      backgroundColor: red[500],
+    },
+  }));
+const News = ({headlines,image,source,publishedAt,url,description}) => {
     const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  }
     return (
         <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Contemplative Reptile"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {headlines}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-             {headlines_summary}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <CardHeader
+        title={source}
+        subheader={new Date(publishedAt).toDateString()}
+      />
+      <CardMedia
+        className={classes.media}
+        image={image}
+        title="Paella dish"
+      />
+      <CardContent>
+        <Typography variant="body2" color="textPrimary" component="p">
+        {headlines}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="share">
+          <LaunchOutlinedIcon onClick={() => url}/>
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>
+            {description}
+          </Typography>  
+        </CardContent>
+      </Collapse>
+    </Card>
     )
 }
 
 export default News
+
+
+
+
+
+
