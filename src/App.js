@@ -1,23 +1,19 @@
 import React,{Component} from 'react';
 import styles from'./App.module.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
- import{Cards,Charts,CountryPicker} from './components'
- import {fetchData,fetchStateData,fetchNewsData } from './api'
- import NewsGrid from './components/News/NewsGrid'
- import Covidlogo from './images/covidlogo.png'
+ import{Cards,Charts,CountryPicker } from './components'
+ import {fetchData,fetchStateData} from './api'
+ import image from './images/covidlogo.jpg';
+ import IconButton from '@material-ui/core/IconButton';
+ import GitHubIcon from '@material-ui/icons/GitHub';
  class App extends Component {
      state = {
          data:{},
         state:'',
-        news:[]
      }
      /* to make lifecycle components async add async before it */
      async componentDidMount(){
         const fetchedData = await fetchData();
         this.setState({data:fetchedData})
-        const NewsData = await fetchNewsData()
-        console.log(NewsData)
-         this.setState({news: NewsData})
      }
 
      handleStatesChange = async(states) =>{
@@ -28,26 +24,22 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
         else {
             const fetchedData = await fetchData();
             this.setState({data:fetchedData})
+            this.setState({state:''})
         }
      }
      render() {
-         const {data,state,news}= this.state
+         const {data,state}= this.state
         
-         return (
-             <Router>
-             <div className={styles.container}>
-             <img className={styles.image} src={Covidlogo} alt="COVID-19"/>
-             
-             <Route exact path="/">
+         return ( 
+            <div className={styles.container}>
+             <img src={image} alt='loading'/>
              <Cards data={data}/>
              <CountryPicker handleStatesChange={this.handleStatesChange}/>
              <Charts data={data} state={state}/>
-             </Route>
-             <Route path="/news">
-                <NewsGrid news={news.articles}/>
-             </Route>
+             <IconButton onClick={()=> window.open('https://github.com/BasilAlosious')}>
+             <GitHubIcon    fontSize="large"/>
+             </IconButton>
              </div>
-             </Router>
          )
      }
  }

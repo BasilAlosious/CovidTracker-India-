@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Lato', 'Arial', sans-serif;
+    padding:5px;
+    border-bottom: 1px solid lightgray;
+}
+
+.image{
+    object-fit: contain;
+
+}
